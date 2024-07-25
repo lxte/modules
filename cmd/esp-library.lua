@@ -4,6 +4,7 @@ local Players = game:GetService("Players")
 
 local ESP = {
     Enabled = true,
+    IgnoreTargets = false,
     Settings = {
         RemoveOnDeath = true,
         MaxDistance = 1000,
@@ -323,6 +324,8 @@ function Object:DrawBox(Quad) -- Draws a box around the player based on a given 
     local TeamColors = GetValue(RenderSettings, GlobalSettings, "TeamColors")
     local Thickness = GetValue(RenderBoxes, GlobalBoxes, "Thickness")
     local Color = GetValue(RenderBoxes, GlobalBoxes, "Color")
+
+    print(self.Model)
 
     local Properties = {
         Visible = true,
