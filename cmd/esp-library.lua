@@ -4,7 +4,6 @@ local Players = game:GetService("Players")
 
 local ESP = {
     Enabled = true,
-    IgnoreTargets = false,
     Settings = {
         RemoveOnDeath = true,
         MaxDistance = 1000,
@@ -325,12 +324,6 @@ function Object:DrawBox(Quad) -- Draws a box around the player based on a given 
     local Thickness = GetValue(RenderBoxes, GlobalBoxes, "Thickness")
     local Color = GetValue(RenderBoxes, GlobalBoxes, "Color")
 
-    local GetPlayer = Players:GetPlayerFromCharacter(self.Model)
-    if (ESP.IgnoreTargets and (GetPlayer and GetPlayer.Team == Players.LocalPlayer.Team)) then
-        warn(ESP.IgnoreTargets, GetPlayer, GetPlayer.Tea, Players.LocalPlayer.Team)
-        return
-    end
-
     local Properties = {
         Visible = true,
         Color = TeamColors and ESP:GetTeamColor(self.Model) or Color,
@@ -366,11 +359,6 @@ function Object:DrawName(Quad)
     local TeamColors = GetValue(RenderNames, GlobalNames, "TeamColors")
     local Color = GetValue(RenderNames, GlobalNames, "Color")
     local Outline = GetValue(RenderNames, GlobalNames, "Outline")
-
-    local GetPlayer = Players:GetPlayerFromCharacter(self.Model)
-    if (ESP.IgnoreTargets and (GetPlayer and GetPlayer.Team == Players.LocalPlayer.Team)) then
-        return
-    end
     
     local Distance = self.Model:GetPivot().Position
     
@@ -400,11 +388,6 @@ function Object:DrawTracer(Quad)
     local TeamColors = GetValue(RenderTracers, GlobalTracers, "TeamColors")
     local Color = GetValue(RenderTracers, GlobalTracers, "Color")
     local Thickness = GetValue(RenderTracers, GlobalTracers, "Thickness")
-
-    local GetPlayer = Players:GetPlayerFromCharacter(self.Model)
-    if (ESP.IgnoreTargets and (GetPlayer and GetPlayer.Team == Players.LocalPlayer.Team)) then
-        return
-    end
     
     local Properties = {
         Visible = true,
