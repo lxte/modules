@@ -325,7 +325,10 @@ function Object:DrawBox(Quad) -- Draws a box around the player based on a given 
     local Thickness = GetValue(RenderBoxes, GlobalBoxes, "Thickness")
     local Color = GetValue(RenderBoxes, GlobalBoxes, "Color")
 
-    print(self.Model)
+    local GetPlayer = Players:GetPlayerFromCharacter(self.Model)
+    if (ESP.IgnoreTargets and (GetPlayer and GetPlayer.Team == Players.LocalPlayer.Team)) then
+        return
+    end
 
     local Properties = {
         Visible = true,
@@ -362,6 +365,11 @@ function Object:DrawName(Quad)
     local TeamColors = GetValue(RenderNames, GlobalNames, "TeamColors")
     local Color = GetValue(RenderNames, GlobalNames, "Color")
     local Outline = GetValue(RenderNames, GlobalNames, "Outline")
+
+    local GetPlayer = Players:GetPlayerFromCharacter(self.Model)
+    if (ESP.IgnoreTargets and (GetPlayer and GetPlayer.Team == Players.LocalPlayer.Team)) then
+        return
+    end
     
     local Distance = self.Model:GetPivot().Position
     
@@ -391,6 +399,11 @@ function Object:DrawTracer(Quad)
     local TeamColors = GetValue(RenderTracers, GlobalTracers, "TeamColors")
     local Color = GetValue(RenderTracers, GlobalTracers, "Color")
     local Thickness = GetValue(RenderTracers, GlobalTracers, "Thickness")
+
+    local GetPlayer = Players:GetPlayerFromCharacter(self.Model)
+    if (ESP.IgnoreTargets and (GetPlayer and GetPlayer.Team == Players.LocalPlayer.Team)) then
+        return
+    end
     
     local Properties = {
         Visible = true,
