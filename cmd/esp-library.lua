@@ -1,4 +1,4 @@
---// not made by me, this is just someone elses esp library (couldnt find whose)
+--// MADE BY SHAYMAN / BLUWU
 
 local Players = game:GetService("Players")
 
@@ -6,12 +6,12 @@ local ESP = {
     Enabled = true,
     Settings = {
         RemoveOnDeath = true,
-        MaxDistance = 300, -- Max Distance for esp to render (IN METERS).
-        MaxBoxSize = Vector3.new(15, 15, 0), -- Max size for ESP boxes.
-        DestroyOnRemove = true, -- Whether the ESP objects should be deleted when the character is parented to nil, change this if you want.
-        TeamColors = false, -- Whether or not the ESP color is based on team colors.
-        TeamBased = false, -- Whether or not the ESP should render ESP on teammates. 
-        BoxTopOffset = Vector3.new(0, 1, 0), -- Offset for where the top of the box should be
+        MaxDistance = 1000,
+        MaxBoxSize = Vector3.new(15, 15, 0),
+        DestroyOnRemove = true, 
+        TeamColors = true,
+        TeamBased = true, 
+        BoxTopOffset = Vector3.new(0, 1, 0), 
         
         Boxes = {
             Enabled = true,
@@ -222,7 +222,7 @@ function Object:New(Model, ExtraInfo) -- Object:New(Target, {Name = "Custom Name
         },
     }
     
-    for Property, Value in next, ExtraInfo or {} do -- Honestly, I did this at 2am and I can't remember why I did it, probably because I had to filter variables so the stupid drawing objects wouldn't get ESP settings tangled up in the variabled like Enabled, causing an error.
+    for Property, Value in next, ExtraInfo or {} do
         
         if Property ~= "Settings" then
             NewObject[Property] = Value
@@ -271,7 +271,7 @@ function Object:New(Model, ExtraInfo) -- Object:New(Target, {Name = "Custom Name
     return NewObject
 end
 
-function Object:GetQuad() -- Gets a table of positions for use in pretty much every ESP function. This also returns if the player is onscreen and will not return anything in the case that they aren't.
+function Object:GetQuad()
     local RenderSettings = self.RenderSettings
     local GlobalSettings = self.GlobalSettings
     
@@ -284,12 +284,10 @@ function Object:GetQuad() -- Gets a table of positions for use in pretty much ev
     
     Pivot = Pivot * ESP:GetOffset(Model)
     
-    Size = Size * Vector3.new(1, 1, 0) -- Thanks synapse editor for not supporting compound operators very cool (also fuck the depth).
+    Size = Size * Vector3.new(1, 1, 0)
 
     local X, Y = math.clamp(Size.X, 1, MaxSize.X) / 2, math.clamp(Size.Y, 1, MaxSize.Y) / 2
     
-    -- Hey check out this amazing epic readable math and very simple easy-to-type variable names.
-    -- There's some leftover code here from when I was using Vector3s instead of CFrames. If you want boxes to be locked on one axis, you can add this back. You're a sociopath if you do, though.
     local PivotVector, PivotOnScreen = (ESP:GetScreenPosition(Pivot.Position))
     local BoxTop = ESP:GetScreenPosition((Pivot * CFrame.new(0, Y, 0)).Position + (BoxTopOffset)) --[[+ (Size * Vector3.new(0, 1, 0) / 2) + Vector3.new(0, 1, 0)]]
     local BoxBottom = ESP:GetScreenPosition((Pivot * CFrame.new(0, -Y, 0)).Position)
@@ -481,5 +479,3 @@ game:GetService("RunService").Stepped:Connect(function()
         Object:Refresh()
     end
 end)
-
-return ESP
