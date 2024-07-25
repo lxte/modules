@@ -327,6 +327,7 @@ function Object:DrawBox(Quad) -- Draws a box around the player based on a given 
 
     local GetPlayer = Players:GetPlayerFromCharacter(self.Model)
     if (ESP.IgnoreTargets and (GetPlayer and GetPlayer.Team == Players.LocalPlayer.Team)) then
+        warn(ESP.IgnoreTargets, GetPlayer, GetPlayer.Tea, Players.LocalPlayer.Team)
         return
     end
 
