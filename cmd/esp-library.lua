@@ -479,3 +479,5 @@ game:GetService("RunService").Stepped:Connect(function()
         Object:Refresh()
     end
 end)
+
+return ESP
