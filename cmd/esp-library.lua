@@ -1,4 +1,5 @@
 --// MADE BY SHAYMAN / BLUWU
+-- not being used in cmd anymore
 
 local Players = game:GetService("Players")
 
